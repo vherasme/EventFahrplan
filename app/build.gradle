@@ -143,6 +143,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
+    implementation project(":commons")
     implementation project(":database")
     implementation project(":network")
 

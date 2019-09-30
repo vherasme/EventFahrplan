@@ -11,10 +11,10 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.JobIntentService;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
-import android.text.format.Time;
 
 import java.util.List;
 
+import info.metadude.android.eventfahrplan.commons.SystemClock;
 import nerd.tuxmobil.fahrplan.congress.MyApp;
 import nerd.tuxmobil.fahrplan.congress.MyApp.TASKS;
 import nerd.tuxmobil.fahrplan.congress.R;
@@ -75,9 +75,7 @@ public class UpdateService extends JobIntentService {
         MyApp.task_running = TASKS.NONE;
         if (status == HttpStatus.HTTP_OK || status == HttpStatus.HTTP_NOT_MODIFIED) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-            Time now = new Time();
-            now.setToNow();
-            long millis = now.toMillis(true);
+            long millis = new SystemClock().toMilliseconds();
             Editor edit = prefs.edit();
             edit.putLong("last_fetch", millis);
             edit.commit();

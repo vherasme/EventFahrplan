@@ -20,7 +20,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
-import android.text.format.Time;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,6 +32,7 @@ import org.ligi.tracedroid.logging.Log;
 
 import java.util.List;
 
+import info.metadude.android.eventfahrplan.commons.SystemClock;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function0;
 import nerd.tuxmobil.fahrplan.congress.MyApp;
@@ -167,9 +167,7 @@ public class MainActivity extends BaseActivity implements
         }
         if (status == HttpStatus.HTTP_OK || status == HttpStatus.HTTP_NOT_MODIFIED) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-            Time now = new Time();
-            now.setToNow();
-            long millis = now.toMillis(true);
+            long millis = new SystemClock().toMilliseconds();
             Editor edit = prefs.edit();
             edit.putLong("last_fetch", millis);
             edit.commit();
